@@ -7,55 +7,56 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## Laravel API
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This project handle the following task:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Задачата е да разработи REST service за паркинг система.
+Услугата трябва да отчита времето на престой на всяко превозно средство, както и да
+формира цената за заплащане при излизане, базирайки се на следните критерии:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Един лек автомобил заема 1 място.
 
-## Learning Laravel
+Дневна тарифа: от 08:00 до 18:00ч - 3лв./час
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Нощна тарифа: от 18:00 до 08:00ч - 2лв./час
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Паркингът разполага с 200 места.
 
-## Laravel Sponsors
+За коректна интеграция, услугата трябва да разполага с endpoints за следните операции:
+1. Проверка на брой свободни места на паркинга.
+2. Проверка на текущо дължима сума на превозно средство с даден номер.
+3. Вход в паркинга
+    * регистрация на превозното средство
+4. Изход от паркинга
+    * дерегистрация на превозното средство
+    * изчисляване на дължима сума.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Running the API
+It's very simple to get the API up and running. First, create the database (and database user if necessary) and add them to the .env file.
 
-### Premium Partners
+```
+DB_DATABASE=your_db_name
+DB_USERNAME=your_db_user
+DB_PASSWORD=your_password
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+Then install, migrate, seed, serve, test and that's all folks:
 
-## Contributing
+1. `composer install`
+2. `php artisan migrate`
+3. `php artisan db:seed`
+4. `php artisan serve`
+5. `composer test`
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+The API will be running on `localhost:8000`.
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Usage of the API
 
-## Security Vulnerabilities
+Endpoints:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. `GET api/available_slots` - return available slots at the parking system
+2. `POST api/register_vehicle/{register_number}` - register vehicle at the parking system by given register number
+3. `GET api/check_vehicle_fees/{register_number}` - return vehicle parking fees by register number
+4. `DELETE api/sign_out_vehicle/{register_number}` - sign out vehicle from the parking system by given number
