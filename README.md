@@ -57,6 +57,6 @@ The API will be running on `localhost:8000`.
 Endpoints:
 
 1. `GET api/available_slots` - return available slots at the parking system
-2. `POST api/register_vehicle/{register_number}` - register vehicle at the parking system by given register number
+2. `POST api/register_vehicle` - register vehicle at the parking system by given register number
 3. `GET api/check_vehicle_fees/{register_number}` - return vehicle parking fees by register number
-4. `DELETE api/sign_out_vehicle/{register_number}` - sign out vehicle from the parking system by given number
+4. `PATCH api/sign_out_vehicle` - sign out vehicle from the parking system by given number

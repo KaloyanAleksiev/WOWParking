@@ -20,8 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('available_slots', 'Api\SlotController@availableSlots');
 Route::get('check_vehicle_fees/{register_number}', 'Api\VehicleController@checkVehicleFees');
-Route::post('register_vehicle/{register_number}', 'Api\VehicleController@registerVehicle');
-Route::delete('sign_out_vehicle/{register_number}', 'Api\VehicleController@signOutVehicle');
+Route::post('register_vehicle', 'Api\VehicleController@registerVehicle');
+Route::patch('sign_out_vehicle', 'Api\VehicleController@signOutVehicle');
 
 Route::fallback(function(){
     return response()->json(['message' => 'Sorry, the page you are looking for could not be found.'], 404);
